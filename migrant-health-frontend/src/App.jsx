@@ -1,35 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// src/App.jsx (請使用此程式碼替換舊的預設內容)
+
+import React, { useState } from 'react';
+import Login from './components/Login.jsx';
+import ComplianceList from './components/ComplianceList.jsx';
+import './App.css'; 
 
 function App() {
-  const [count, setCount] = useState(0)
+  // 檢查 Local Storage 中是否有 Token 來初始化登入狀態
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    !!localStorage.getItem('authToken')
+  );
+
+  const handleLoginSuccess = () => {
+    setIsAuthenticated(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('authToken'); // 從 Local Storage 移除 Token
+    setIsAuthenticated(false);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="app-main">
+      <header>
+          {/* 只有在登入狀態下才顯示登出按鈕 */}
+          {isAuthenticated && (
+              <button onClick={handleLogout} className="logout-button">登出</button>
+          )}
+      </header>
+
+      {/* 根據 isAuthenticated 狀態進行條件渲染 */}
+      {isAuthenticated ? (
+        <ComplianceList /> // 已登入：顯示預警清單
+      ) : (
+        <Login onLoginSuccess={handleLoginSuccess} /> // 未登入：顯示登入頁面
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;

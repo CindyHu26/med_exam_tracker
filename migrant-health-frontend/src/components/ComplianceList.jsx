@@ -43,3 +43,5 @@ function ComplianceList() {
         </div>
     );
 }
+
+export default ComplianceList;
