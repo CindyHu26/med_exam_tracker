@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # 您的 App:
     'compliance',
     'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [

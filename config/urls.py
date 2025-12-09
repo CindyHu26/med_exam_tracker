@@ -16,8 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import RedirectView # 匯入 RedirectView
 
 urlpatterns = [
+    # 讓網站根路徑 (/) 重新導向到 /admin/ 
+    path('', RedirectView.as_view(url='admin/', permanent=False)),
     path('admin/', admin.site.urls),
     path('api/v1/', include('compliance.urls')), # <<< 在這裡加入，所有 API 都以 /api/v1/ 開頭
 ]
