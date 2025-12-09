@@ -42,10 +42,13 @@ INSTALLED_APPS = [
     'compliance',
     'rest_framework',
     'rest_framework.authtoken',
+
+    'corsheaders',  # <<< 1. 新增 CORS 應用
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # <<< 2. 新增 CORS 中介軟體
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -144,3 +147,10 @@ REST_FRAMEWORK = {
         # 'rest_framework.permissions.IsAuthenticated', # 替代方案：只要求登入即可
     ]
 }
+
+# 3. 定義允許存取的來源清單
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",       # React Vite 開發伺服器
+    "http://127.0.0.1:5173",       # 有時瀏覽器會使用 127.0.0.1
+    "http://localhost:8000",
+]
