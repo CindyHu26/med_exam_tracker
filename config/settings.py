@@ -131,6 +131,7 @@ REST_FRAMEWORK = {
     # 使用 SessionAuthentication (適合瀏覽器登入，如 Admin 介面) 
     # 和 BasicAuthentication (適合簡單的 API 測試)
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ],
