@@ -1,0 +1,11 @@
+# .gitignore 檔案（上傳到 GitHub）
+
+# 忽略 Python 虛擬環境
+venv/
+
+# 忽略所有包含敏感資訊的設定檔案
+.env
+
+# 忽略 Django 預設產生的暫存檔案
+__pycache__/
+*.pyc
