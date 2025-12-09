@@ -3,12 +3,17 @@ from django.shortcuts import render
 # Create your views here.
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAdminUser
 from .models import Worker
 
 class ComplianceDueListView(APIView):
     """
     獲取即將到期/已逾期體檢的移工清單
+    只允許具備管理員權限的使用者存取。
     """
+    # 應用權限檢查：只允許 IsAdminUser 通過
+    permission_classes = [IsAdminUser]
+    
     def get(self, request, *args, **kwargs):
 
         # 1. 取得所有在職移工

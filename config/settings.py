@@ -124,3 +124,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+REST_FRAMEWORK = {
+    # 1. 預設的身份驗證類別：
+    # 使用 SessionAuthentication (適合瀏覽器登入，如 Admin 介面) 
+    # 和 BasicAuthentication (適合簡單的 API 測試)
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ],
+
+    # 2. 預設的權限類別：
+    # IsAdminUser：只允許超級使用者 (superuser) 或 is_staff=True 的使用者訪問
+    # IsAuthenticated：只允許登入的使用者訪問
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAdminUser',  # 推薦：確保只有管理員能存取核心數據
+        # 'rest_framework.permissions.IsAuthenticated', # 替代方案：只要求登入即可
+    ]
+}
